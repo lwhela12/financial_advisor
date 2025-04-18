@@ -1,0 +1,35 @@
+5f385e6bb5d5a566ca7e25bd81c80833
+"use strict";
+// @ts-nocheck
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
+/*
+ * Very light‑weight Prisma client wrapper.
+ *
+ * The real generated client may not be present when the test suite is run in
+ * CI.  To ensure the server can still boot we try to load it dynamically using
+ * `require`.  If it isn’t available we fall back to a stub that throws a clear
+ * error when used – none of the current tests touch the database, so this is
+ * acceptable for now.
+ */
+let PrismaClientConstructor; // eslint-disable-line @typescript-eslint/no-explicit-any
+try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-extraneous-dependencies
+    PrismaClientConstructor = require('@prisma/client').PrismaClient;
+}
+catch {
+    PrismaClientConstructor = class MissingPrismaClient {
+        constructor() {
+            throw new Error('Prisma client not generated – run "prisma generate".');
+        }
+    };
+}
+const globalForPrisma = globalThis; // eslint-disable-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+exports.prisma = globalForPrisma.prisma ?? new PrismaClientConstructor();
+if (process.env.NODE_ENV !== 'production') {
+    globalForPrisma.prisma = exports.prisma;
+}
+exports.default = exports.prisma;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2x1Y2Fzd2hlbGFuL2ZpbmFuY2lhbF9hZHZpc29yL3NyYy9zZXJ2aWNlcy9kYi50cyIsIm1hcHBpbmdzIjoiO0FBQUEsY0FBYzs7O0FBRWQ7Ozs7Ozs7O0dBUUc7QUFFSCxJQUFJLHVCQUE0QixDQUFDLENBQUMseURBQXlEO0FBRTNGLElBQUksQ0FBQztJQUNILGdHQUFnRztJQUNoRyx1QkFBdUIsR0FBRyxPQUFPLENBQUMsZ0JBQWdCLENBQUMsQ0FBQyxZQUFZLENBQUM7QUFDbkUsQ0FBQztBQUFDLE1BQU0sQ0FBQztJQUNQLHVCQUF1QixHQUFHLE1BQU0sbUJBQW1CO1FBQ2pEO1lBQ0UsTUFBTSxJQUFJLEtBQUssQ0FBQyxzREFBc0QsQ0FBQyxDQUFDO1FBQzFFLENBQUM7S0FDRixDQUFDO0FBQ0osQ0FBQztBQUVELE1BQU0sZUFBZSxHQUFHLFVBQThCLENBQUMsQ0FBQyx5REFBeUQ7QUFFakgsNkRBQTZEO0FBQzdELGFBQWE7QUFDQSxRQUFBLE1BQU0sR0FBRyxlQUFlLENBQUMsTUFBTSxJQUFJLElBQUksdUJBQXVCLEVBQUUsQ0FBQztBQUU5RSxJQUFJLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxLQUFLLFlBQVksRUFBRSxDQUFDO0lBQzFDLGVBQWUsQ0FBQyxNQUFNLEdBQUcsY0FBTSxDQUFDO0FBQ2xDLENBQUM7QUFFRCxrQkFBZSxjQUFNLENBQUMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL1VzZXJzL2x1Y2Fzd2hlbGFuL2ZpbmFuY2lhbF9hZHZpc29yL3NyYy9zZXJ2aWNlcy9kYi50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAdHMtbm9jaGVja1xuXG4vKlxuICogVmVyeSBsaWdodOKAkXdlaWdodCBQcmlzbWEgY2xpZW50IHdyYXBwZXIuXG4gKlxuICogVGhlIHJlYWwgZ2VuZXJhdGVkIGNsaWVudCBtYXkgbm90IGJlIHByZXNlbnQgd2hlbiB0aGUgdGVzdCBzdWl0ZSBpcyBydW4gaW5cbiAqIENJLiAgVG8gZW5zdXJlIHRoZSBzZXJ2ZXIgY2FuIHN0aWxsIGJvb3Qgd2UgdHJ5IHRvIGxvYWQgaXQgZHluYW1pY2FsbHkgdXNpbmdcbiAqIGByZXF1aXJlYC4gIElmIGl0IGlzbuKAmXQgYXZhaWxhYmxlIHdlIGZhbGwgYmFjayB0byBhIHN0dWIgdGhhdCB0aHJvd3MgYSBjbGVhclxuICogZXJyb3Igd2hlbiB1c2VkIOKAkyBub25lIG9mIHRoZSBjdXJyZW50IHRlc3RzIHRvdWNoIHRoZSBkYXRhYmFzZSwgc28gdGhpcyBpc1xuICogYWNjZXB0YWJsZSBmb3Igbm93LlxuICovXG5cbmxldCBQcmlzbWFDbGllbnRDb25zdHJ1Y3RvcjogYW55OyAvLyBlc2xpbnQtZGlzYWJsZS1saW5lIEB0eXBlc2NyaXB0LWVzbGludC9uby1leHBsaWNpdC1hbnlcblxudHJ5IHtcbiAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIEB0eXBlc2NyaXB0LWVzbGludC9uby12YXItcmVxdWlyZXMsaW1wb3J0L25vLWV4dHJhbmVvdXMtZGVwZW5kZW5jaWVzXG4gIFByaXNtYUNsaWVudENvbnN0cnVjdG9yID0gcmVxdWlyZSgnQHByaXNtYS9jbGllbnQnKS5QcmlzbWFDbGllbnQ7XG59IGNhdGNoIHtcbiAgUHJpc21hQ2xpZW50Q29uc3RydWN0b3IgPSBjbGFzcyBNaXNzaW5nUHJpc21hQ2xpZW50IHtcbiAgICBjb25zdHJ1Y3RvcigpIHtcbiAgICAgIHRocm93IG5ldyBFcnJvcignUHJpc21hIGNsaWVudCBub3QgZ2VuZXJhdGVkIOKAkyBydW4gXCJwcmlzbWEgZ2VuZXJhdGVcIi4nKTtcbiAgICB9XG4gIH07XG59XG5cbmNvbnN0IGdsb2JhbEZvclByaXNtYSA9IGdsb2JhbFRoaXMgYXMgeyBwcmlzbWE/OiBhbnkgfTsgLy8gZXNsaW50LWRpc2FibGUtbGluZSBAdHlwZXNjcmlwdC1lc2xpbnQvbm8tZXhwbGljaXQtYW55XG5cbi8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBAdHlwZXNjcmlwdC1lc2xpbnQvYmFuLXRzLWNvbW1lbnRcbi8vIEB0cy1pZ25vcmVcbmV4cG9ydCBjb25zdCBwcmlzbWEgPSBnbG9iYWxGb3JQcmlzbWEucHJpc21hID8/IG5ldyBQcmlzbWFDbGllbnRDb25zdHJ1Y3RvcigpO1xuXG5pZiAocHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICdwcm9kdWN0aW9uJykge1xuICBnbG9iYWxGb3JQcmlzbWEucHJpc21hID0gcHJpc21hO1xufVxuXG5leHBvcnQgZGVmYXVsdCBwcmlzbWE7XG4iXSwidmVyc2lvbiI6M30=

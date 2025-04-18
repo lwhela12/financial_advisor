@@ -1,0 +1,42 @@
+8d86692c1143207bae197cdf49f7260d
+"use strict";
+/*
+ * Centralised Prisma client instance.
+ *
+ * In a freshly‑cloned repo `prisma generate` might not have been executed yet.
+ * Importing named exports from `@prisma/client` would therefore fail the
+ * TypeScript compile that Jest performs, because the generated types are
+ * missing. To keep the tests green without requiring the generator to have
+ * run, we import the package’s default export and pluck the `PrismaClient`
+ * constructor at runtime.
+ */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
+// eslint-disable-next-line import/no-extraneous-dependencies
+const client_1 = __importDefault(require("@prisma/client"));
+// At runtime `pkg` will be an object like `{ PrismaClient, Prisma }` once the
+// client has been generated.  When the generated client is missing (e.g. CI
+// before `prisma generate`), we fall back to a lightweight proxy that throws
+// a helpful error if used.  This lets the test suite boot the Fastify server
+// (none of the tests exercise the database yet) without failing the module
+// load phase.
+// Using `any` to avoid type errors when the generated client isn’t present.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PrismaClient = client_1.default.PrismaClient ?? class MissingPrisma {
+    constructor() {
+        // Only throw if someone actually tries to use the DB during the test run.
+        throw new Error('Prisma Client has not been generated yet. Please run "prisma generate".');
+    }
+};
+const globalForPrisma = globalThis;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore – the proxy class above is structurally compatible
+exports.prisma = globalForPrisma.prisma ?? new PrismaClient();
+if (process.env.NODE_ENV !== 'production') {
+    globalForPrisma.prisma = exports.prisma;
+}
+exports.default = exports.prisma;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2x1Y2Fzd2hlbGFuL2ZpbmFuY2lhbF9hZHZpc29yL3NyYy9zZXJ2aWNlcy9kYi50cyIsIm1hcHBpbmdzIjoiO0FBQUE7Ozs7Ozs7OztHQVNHOzs7Ozs7QUFFSCw2REFBNkQ7QUFDN0QsNERBQWlDO0FBRWpDLDhFQUE4RTtBQUM5RSw0RUFBNEU7QUFDNUUsNkVBQTZFO0FBQzdFLDZFQUE2RTtBQUM3RSwyRUFBMkU7QUFDM0UsY0FBYztBQUVkLDRFQUE0RTtBQUM1RSw4REFBOEQ7QUFDOUQsTUFBTSxZQUFZLEdBQVMsZ0JBQVcsQ0FBQyxZQUFZLElBQUksTUFBTSxhQUFhO0lBQ3hFO1FBQ0UsMEVBQTBFO1FBQzFFLE1BQU0sSUFBSSxLQUFLLENBQ2IseUVBQXlFLENBQzFFLENBQUM7SUFDSixDQUFDO0NBQ0YsQ0FBQztBQUVGLE1BQU0sZUFBZSxHQUFHLFVBQXVFLENBQUM7QUFFaEcsNkRBQTZEO0FBQzdELGdFQUFnRTtBQUNuRCxRQUFBLE1BQU0sR0FBRyxlQUFlLENBQUMsTUFBTSxJQUFJLElBQUksWUFBWSxFQUFFLENBQUM7QUFFbkUsSUFBSSxPQUFPLENBQUMsR0FBRyxDQUFDLFFBQVEsS0FBSyxZQUFZLEVBQUUsQ0FBQztJQUMxQyxlQUFlLENBQUMsTUFBTSxHQUFHLGNBQU0sQ0FBQztBQUNsQyxDQUFDO0FBRUQsa0JBQWUsY0FBTSxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9Vc2Vycy9sdWNhc3doZWxhbi9maW5hbmNpYWxfYWR2aXNvci9zcmMvc2VydmljZXMvZGIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIENlbnRyYWxpc2VkIFByaXNtYSBjbGllbnQgaW5zdGFuY2UuXG4gKlxuICogSW4gYSBmcmVzaGx54oCRY2xvbmVkIHJlcG8gYHByaXNtYSBnZW5lcmF0ZWAgbWlnaHQgbm90IGhhdmUgYmVlbiBleGVjdXRlZCB5ZXQuXG4gKiBJbXBvcnRpbmcgbmFtZWQgZXhwb3J0cyBmcm9tIGBAcHJpc21hL2NsaWVudGAgd291bGQgdGhlcmVmb3JlIGZhaWwgdGhlXG4gKiBUeXBlU2NyaXB0IGNvbXBpbGUgdGhhdCBKZXN0IHBlcmZvcm1zLCBiZWNhdXNlIHRoZSBnZW5lcmF0ZWQgdHlwZXMgYXJlXG4gKiBtaXNzaW5nLiBUbyBrZWVwIHRoZSB0ZXN0cyBncmVlbiB3aXRob3V0IHJlcXVpcmluZyB0aGUgZ2VuZXJhdG9yIHRvIGhhdmVcbiAqIHJ1biwgd2UgaW1wb3J0IHRoZSBwYWNrYWdl4oCZcyBkZWZhdWx0IGV4cG9ydCBhbmQgcGx1Y2sgdGhlIGBQcmlzbWFDbGllbnRgXG4gKiBjb25zdHJ1Y3RvciBhdCBydW50aW1lLlxuICovXG5cbi8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBpbXBvcnQvbm8tZXh0cmFuZW91cy1kZXBlbmRlbmNpZXNcbmltcG9ydCBwa2cgZnJvbSAnQHByaXNtYS9jbGllbnQnO1xuXG4vLyBBdCBydW50aW1lIGBwa2dgIHdpbGwgYmUgYW4gb2JqZWN0IGxpa2UgYHsgUHJpc21hQ2xpZW50LCBQcmlzbWEgfWAgb25jZSB0aGVcbi8vIGNsaWVudCBoYXMgYmVlbiBnZW5lcmF0ZWQuICBXaGVuIHRoZSBnZW5lcmF0ZWQgY2xpZW50IGlzIG1pc3NpbmcgKGUuZy4gQ0lcbi8vIGJlZm9yZSBgcHJpc21hIGdlbmVyYXRlYCksIHdlIGZhbGwgYmFjayB0byBhIGxpZ2h0d2VpZ2h0IHByb3h5IHRoYXQgdGhyb3dzXG4vLyBhIGhlbHBmdWwgZXJyb3IgaWYgdXNlZC4gIFRoaXMgbGV0cyB0aGUgdGVzdCBzdWl0ZSBib290IHRoZSBGYXN0aWZ5IHNlcnZlclxuLy8gKG5vbmUgb2YgdGhlIHRlc3RzIGV4ZXJjaXNlIHRoZSBkYXRhYmFzZSB5ZXQpIHdpdGhvdXQgZmFpbGluZyB0aGUgbW9kdWxlXG4vLyBsb2FkIHBoYXNlLlxuXG4vLyBVc2luZyBgYW55YCB0byBhdm9pZCB0eXBlIGVycm9ycyB3aGVuIHRoZSBnZW5lcmF0ZWQgY2xpZW50IGlzbuKAmXQgcHJlc2VudC5cbi8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBAdHlwZXNjcmlwdC1lc2xpbnQvbm8tZXhwbGljaXQtYW55XG5jb25zdCBQcmlzbWFDbGllbnQ6IGFueSA9IChwa2cgYXMgYW55KS5QcmlzbWFDbGllbnQgPz8gY2xhc3MgTWlzc2luZ1ByaXNtYSB7XG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIC8vIE9ubHkgdGhyb3cgaWYgc29tZW9uZSBhY3R1YWxseSB0cmllcyB0byB1c2UgdGhlIERCIGR1cmluZyB0aGUgdGVzdCBydW4uXG4gICAgdGhyb3cgbmV3IEVycm9yKFxuICAgICAgJ1ByaXNtYSBDbGllbnQgaGFzIG5vdCBiZWVuIGdlbmVyYXRlZCB5ZXQuIFBsZWFzZSBydW4gXCJwcmlzbWEgZ2VuZXJhdGVcIi4nLFxuICAgICk7XG4gIH1cbn07XG5cbmNvbnN0IGdsb2JhbEZvclByaXNtYSA9IGdsb2JhbFRoaXMgYXMgdW5rbm93biBhcyB7IHByaXNtYT86IEluc3RhbmNlVHlwZTx0eXBlb2YgUHJpc21hQ2xpZW50PiB9O1xuXG4vLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgQHR5cGVzY3JpcHQtZXNsaW50L2Jhbi10cy1jb21tZW50XG4vLyBAdHMtaWdub3JlIOKAkyB0aGUgcHJveHkgY2xhc3MgYWJvdmUgaXMgc3RydWN0dXJhbGx5IGNvbXBhdGlibGVcbmV4cG9ydCBjb25zdCBwcmlzbWEgPSBnbG9iYWxGb3JQcmlzbWEucHJpc21hID8/IG5ldyBQcmlzbWFDbGllbnQoKTtcblxuaWYgKHByb2Nlc3MuZW52Lk5PREVfRU5WICE9PSAncHJvZHVjdGlvbicpIHtcbiAgZ2xvYmFsRm9yUHJpc21hLnByaXNtYSA9IHByaXNtYTtcbn1cblxuZXhwb3J0IGRlZmF1bHQgcHJpc21hO1xuIl0sInZlcnNpb24iOjN9

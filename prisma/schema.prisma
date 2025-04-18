@@ -1,0 +1,94 @@
+// datasource & generator
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// Models ---------------------------------------------------------
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  passwordHash  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  assets      Asset[]
+  liabilities Liability[]
+  statements  Statement[]
+  jobs        Job[]
+}
+
+enum AssetType {
+  Cash
+  Brokerage
+  Retirement
+  RealEstate
+  Other
+}
+
+model Asset {
+  id        String     @id @default(uuid())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String
+  name      String
+  type      AssetType
+  value     Decimal    @db.Numeric(15,2)
+  currency  String      @default("USD")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+enum LiabilityType {
+  Mortgage
+  CreditCard
+  Loan
+  Other
+}
+
+model Liability {
+  id        String        @id @default(uuid())
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  name      String
+  type      LiabilityType
+  balance   Decimal       @db.Numeric(15,2)
+  currency  String        @default("USD")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Statement {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  s3Key       String
+  mimeType    String
+  sizeBytes   Int
+  createdAt   DateTime @default(now())
+  processedAt DateTime?
+  job         Job?      @relation(fields: [jobId], references: [id])
+  jobId       String?
+}
+
+enum JobStatus {
+  pending
+  processing
+  succeeded
+  failed
+}
+
+model Job {
+  id          String     @id @default(uuid())
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      String?
+  type        String
+  status      JobStatus  @default(pending)
+  error       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
