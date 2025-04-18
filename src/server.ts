@@ -223,6 +223,12 @@ export async function buildServer(): Promise<FastifyInstance> {
 
 // If not in test mode, start server immediately
 if (process.env.NODE_ENV !== 'test') {
+  // Start the OCR worker
+  import('./services/worker.js').catch((err) => {
+    console.error('Failed to start OCR worker:', err);
+  });
+
+  // Start the API server
   buildServer().then((server) => {
     const port = parseInt(process.env.PORT || '3000', 10);
     server.listen({ port, host: '0.0.0.0' })

@@ -1,0 +1,37 @@
+d9c6355272a8f3f97fedb3d29b4a371b
+"use strict";
+// @ts-nocheck
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
+/*
+ * Lazy Prisma client singleton.
+ *
+ * The generated client may be missing in CI when tests are executed before
+ * `prisma generate`.  Importing it unconditionally would therefore throw and
+ * prevent the server from booting.  To work around this we create a proxy that
+ * attempts to require the real client only when the first property is
+ * accessed (i.e. the first time an endpoint actually needs the database).
+ */
+let realClient; // eslint-disable-line @typescript-eslint/no-explicit-any
+function initPrisma() {
+    if (realClient)
+        return realClient;
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-extraneous-dependencies
+        const { PrismaClient } = require('@prisma/client');
+        realClient = new PrismaClient();
+    }
+    catch {
+        throw new Error('Prisma client not generated – run "prisma generate".');
+    }
+    return realClient;
+}
+exports.prisma = new Proxy({}, {
+    get(_target, prop) {
+        const client = initPrisma();
+        // @ts-ignore dynamic prop access
+        return client[prop];
+    },
+});
+exports.default = exports.prisma;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2x1Y2Fzd2hlbGFuL2ZpbmFuY2lhbF9hZHZpc29yL3NyYy9zZXJ2aWNlcy9kYi50cyIsIm1hcHBpbmdzIjoiO0FBQUEsY0FBYzs7O0FBRWQ7Ozs7Ozs7O0dBUUc7QUFFSCxJQUFJLFVBQWUsQ0FBQyxDQUFDLHlEQUF5RDtBQUU5RSxTQUFTLFVBQVU7SUFDakIsSUFBSSxVQUFVO1FBQUUsT0FBTyxVQUFVLENBQUM7SUFFbEMsSUFBSSxDQUFDO1FBQ0gsZ0dBQWdHO1FBQ2hHLE1BQU0sRUFBRSxZQUFZLEVBQUUsR0FBRyxPQUFPLENBQUMsZ0JBQWdCLENBQUMsQ0FBQztRQUNuRCxVQUFVLEdBQUcsSUFBSSxZQUFZLEVBQUUsQ0FBQztJQUNsQyxDQUFDO0lBQUMsTUFBTSxDQUFDO1FBQ1AsTUFBTSxJQUFJLEtBQUssQ0FBQyxzREFBc0QsQ0FBQyxDQUFDO0lBQzFFLENBQUM7SUFFRCxPQUFPLFVBQVUsQ0FBQztBQUNwQixDQUFDO0FBRVksUUFBQSxNQUFNLEdBQUcsSUFBSSxLQUFLLENBQzdCLEVBQUUsRUFDRjtJQUNFLEdBQUcsQ0FBQyxPQUFPLEVBQUUsSUFBSTtRQUNmLE1BQU0sTUFBTSxHQUFHLFVBQVUsRUFBRSxDQUFDO1FBQzVCLGlDQUFpQztRQUNqQyxPQUFPLE1BQU0sQ0FBQyxJQUFJLENBQUMsQ0FBQztJQUN0QixDQUFDO0NBQ0YsQ0FDSyxDQUFDO0FBRVQsa0JBQWUsY0FBTSxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9Vc2Vycy9sdWNhc3doZWxhbi9maW5hbmNpYWxfYWR2aXNvci9zcmMvc2VydmljZXMvZGIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gQHRzLW5vY2hlY2tcblxuLypcbiAqIExhenkgUHJpc21hIGNsaWVudCBzaW5nbGV0b24uXG4gKlxuICogVGhlIGdlbmVyYXRlZCBjbGllbnQgbWF5IGJlIG1pc3NpbmcgaW4gQ0kgd2hlbiB0ZXN0cyBhcmUgZXhlY3V0ZWQgYmVmb3JlXG4gKiBgcHJpc21hIGdlbmVyYXRlYC4gIEltcG9ydGluZyBpdCB1bmNvbmRpdGlvbmFsbHkgd291bGQgdGhlcmVmb3JlIHRocm93IGFuZFxuICogcHJldmVudCB0aGUgc2VydmVyIGZyb20gYm9vdGluZy4gIFRvIHdvcmsgYXJvdW5kIHRoaXMgd2UgY3JlYXRlIGEgcHJveHkgdGhhdFxuICogYXR0ZW1wdHMgdG8gcmVxdWlyZSB0aGUgcmVhbCBjbGllbnQgb25seSB3aGVuIHRoZSBmaXJzdCBwcm9wZXJ0eSBpc1xuICogYWNjZXNzZWQgKGkuZS4gdGhlIGZpcnN0IHRpbWUgYW4gZW5kcG9pbnQgYWN0dWFsbHkgbmVlZHMgdGhlIGRhdGFiYXNlKS5cbiAqL1xuXG5sZXQgcmVhbENsaWVudDogYW55OyAvLyBlc2xpbnQtZGlzYWJsZS1saW5lIEB0eXBlc2NyaXB0LWVzbGludC9uby1leHBsaWNpdC1hbnlcblxuZnVuY3Rpb24gaW5pdFByaXNtYSgpIHtcbiAgaWYgKHJlYWxDbGllbnQpIHJldHVybiByZWFsQ2xpZW50O1xuXG4gIHRyeSB7XG4gICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIEB0eXBlc2NyaXB0LWVzbGludC9uby12YXItcmVxdWlyZXMsaW1wb3J0L25vLWV4dHJhbmVvdXMtZGVwZW5kZW5jaWVzXG4gICAgY29uc3QgeyBQcmlzbWFDbGllbnQgfSA9IHJlcXVpcmUoJ0BwcmlzbWEvY2xpZW50Jyk7XG4gICAgcmVhbENsaWVudCA9IG5ldyBQcmlzbWFDbGllbnQoKTtcbiAgfSBjYXRjaCB7XG4gICAgdGhyb3cgbmV3IEVycm9yKCdQcmlzbWEgY2xpZW50IG5vdCBnZW5lcmF0ZWQg4oCTIHJ1biBcInByaXNtYSBnZW5lcmF0ZVwiLicpO1xuICB9XG5cbiAgcmV0dXJuIHJlYWxDbGllbnQ7XG59XG5cbmV4cG9ydCBjb25zdCBwcmlzbWEgPSBuZXcgUHJveHkoXG4gIHt9LFxuICB7XG4gICAgZ2V0KF90YXJnZXQsIHByb3ApIHtcbiAgICAgIGNvbnN0IGNsaWVudCA9IGluaXRQcmlzbWEoKTtcbiAgICAgIC8vIEB0cy1pZ25vcmUgZHluYW1pYyBwcm9wIGFjY2Vzc1xuICAgICAgcmV0dXJuIGNsaWVudFtwcm9wXTtcbiAgICB9LFxuICB9LFxuKSBhcyBhbnk7XG5cbmV4cG9ydCBkZWZhdWx0IHByaXNtYTtcbiJdLCJ2ZXJzaW9uIjozfQ==

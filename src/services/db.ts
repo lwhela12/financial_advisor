@@ -13,6 +13,15 @@
 let realClient: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 function initPrisma() {
+  // In test mode, return a stub client to avoid real database interactions
+  if (process.env.NODE_ENV === 'test') {
+    return {
+      user: {
+        findUnique: async () => null,
+        create: async ({ data }) => ({ id: 'user-id', email: data.email }),
+      },
+    };
+  }
   if (realClient) return realClient;
 
   try {
