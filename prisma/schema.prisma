@@ -92,5 +92,9 @@ model Job {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   // Back-relation for one-to-one with Statement
-  statement Statement?
+  statement     Statement?
+  /// Number of pages processed by OCR
+  pages         Int?
+  /// Number of symbol occurrences found during OCR parsing
+  symbolsFound  Int?
 }
